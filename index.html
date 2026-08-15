@@ -105,7 +105,6 @@
             box-shadow: 0 0 50px -8px rgba(75, 123, 255, 0.25);
         }
 
-        /* Let's Talk button with blue gradient on the right side */
         .gradient-btn-letstalk {
             background: linear-gradient(135deg, #E8F0FE 0%, #4B7BFF 100%);
             color: #FFFFFF;
@@ -325,7 +324,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
 
-                <!-- Let's Talk CTA (updated gradient) -->
+                <!-- Let's Talk CTA -->
                 <button onclick="openBookingModal()" class="gradient-btn-letstalk text-sm font-semibold px-5 py-2.5 rounded-full shadow-glow-blue hover:shadow-lg transition-all duration-200 flex items-center gap-2 transform active:scale-95">
                     <i class="fa-solid fa-comment-dots"></i>
                     <span>Let's Talk</span>
@@ -340,7 +339,6 @@
                 <a href="#" onclick="navigateTo('page-services')" class="text-[#7B8BB0] hover:text-[#4B7BFF] py-2">Services</a>
                 <a href="#" onclick="navigateTo('page-faq')" class="text-[#7B8BB0] hover:text-[#4B7BFF] py-2">FAQ</a>
                 <a href="#" onclick="navigateTo('page-pricing')" class="text-[#7B8BB0] hover:text-[#4B7BFF] py-2">Pricing</a>
-                <!-- Mobile Let's Talk Button -->
                 <button onclick="openBookingModal()" class="gradient-btn-letstalk font-bold px-4 py-2.5 rounded-full w-full flex items-center justify-center gap-2 mt-2">
                     <i class="fa-solid fa-comment-dots"></i>
                     <span>Let's Talk</span>
@@ -816,20 +814,20 @@
                 `<span>${review.initials}</span>`;
 
             return `
-                        <div class="review-card">
-                            <div>
-                                <div class="flex items-center gap-3 mb-3">
-                                    <div class="avatar">${avatarHtml}</div>
-                                    <div>
-                                        <h4 class="text-xs font-bold text-white flex items-center gap-1">${review.name}</h4>
-                                        <span class="text-[10px] text-[#4B7BFF]/50 font-medium uppercase tracking-wider">${review.country}</span>
+                            <div class="review-card">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="avatar">${avatarHtml}</div>
+                                        <div>
+                                            <h4 class="text-xs font-bold text-white flex items-center gap-1">${review.name}</h4>
+                                            <span class="text-[10px] text-[#4B7BFF]/50 font-medium uppercase tracking-wider">${review.country}</span>
+                                        </div>
                                     </div>
+                                    <div class="stars">${renderStars(review.stars)}</div>
+                                    <p class="text-xs text-[#C7D4F0]/80 leading-relaxed mt-2">${review.text}</p>
                                 </div>
-                                <div class="stars">${renderStars(review.stars)}</div>
-                                <p class="text-xs text-[#C7D4F0]/80 leading-relaxed mt-2">${review.text}</p>
                             </div>
-                        </div>
-                    `;
+                        `;
         }
 
         const track = document.getElementById('reviewTrack');
@@ -838,35 +836,30 @@
         let cardsHTML = '';
         reviewData.forEach(r => { cardsHTML += buildReviewCardHTML(r); });
 
-        // Duplicate the set for infinite loop (we need at least 2 sets to loop seamlessly)
+        // Duplicate the set for infinite loop
         track.innerHTML = cardsHTML + cardsHTML;
 
         // Start the infinite scroll animation
         let scrollOffset = 0;
-        const speed = 0.4; // pixels per frame
+        const speed = 0.4;
 
         function animateInfiniteScroll() {
-            // Get the width of the first set of cards (half of the total track width)
-            // Since we have 2 identical sets, the total width is 2x the original.
-            // When we've scrolled past the first set, we reset to 0.
             const totalWidth = track.scrollWidth / 2;
-
             scrollOffset -= speed;
             if (Math.abs(scrollOffset) >= totalWidth) {
                 scrollOffset = 0;
             }
-
             track.style.transform = `translateX(${scrollOffset}px)`;
             requestAnimationFrame(animateInfiniteScroll);
         }
-
-        // Start the animation loop
         requestAnimationFrame(animateInfiniteScroll);
 
+        // ================================================================
+        // ===== INTEGRATIONS GRID (Top 15, with local Slack image) =====
+        // ================================================================
 
-        // ===== INTEGRATIONS GRID (Top 15 - All Blue, includes Claude) =====
         const integrations = [
-            { name: 'Slack', slug: 'slack' },
+            { name: 'Slack', slug: 'slack', localIcon: 'Images/slack.png' },
             { name: 'Google Calendar', slug: 'googlecalendar' },
             { name: 'Discord', slug: 'discord' },
             { name: 'Notion', slug: 'notion' },
@@ -876,7 +869,7 @@
             { name: 'YouTube', slug: 'youtube' },
             { name: 'Google Ads', slug: 'googleads' },
             { name: 'Airtable', slug: 'airtable' },
-            { name: 'Salesforce', slug: 'salesforce' },
+            { name: 'Shopify', slug: 'shopify' }, // replaced Salesforce
             { name: 'Zapier', slug: 'zapier' },
             { name: 'Make', slug: 'make' },
             { name: 'Stripe', slug: 'stripe' },
@@ -889,8 +882,14 @@
                 const div = document.createElement('div');
                 div.className =
                     'flex flex-col items-center justify-center p-4 rounded-xl bg-[#0F1626]/60 border border-[#1E2A45] hover:border-[#4B7BFF]/40 transition-all hover:shadow-glow-blue min-h-[90px]';
+
+                // For Slack, use local image; for others use simpleicons with blue
+                const iconSrc = item.localIcon ?
+                    item.localIcon :
+                    `https://cdn.simpleicons.org/${item.slug}/4B7BFF`;
+
                 div.innerHTML = `
-                                <img src="https://cdn.simpleicons.org/${item.slug}/4B7BFF" alt="${item.name}" class="h-8 w-8 md:h-10 md:w-10 mb-2" onerror="this.onerror=null; this.src='https://www.google.com/s2/favicons?domain=${item.name.toLowerCase().replace(' ', '')}.com&sz=64';" />
+                                <img src="${iconSrc}" alt="${item.name}" class="h-8 w-8 md:h-10 md:w-10 mb-2" onerror="this.onerror=null; this.src='https://www.google.com/s2/favicons?domain=${item.name.toLowerCase().replace(' ', '')}.com&sz=64';" />
                                 <span class="text-xs text-[#C7D4F0] font-medium text-center">${item.name}</span>
                             `;
                 grid.appendChild(div);
