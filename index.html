@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xemn Agents | Gemini‑inspired AI Team</title>
+    <!-- Favicon -->
+    <link rel="icon" href="Images/favicon.png" type="image/png" />
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        xemn: {
+                            bg: '#070B15',
+                            card: '#0F1626',
+                            border: '#1E2A45',
+                            surface: '#141D33',
+                            muted: '#7B8BB0',
+                            soft: '#C7D4F0',
+                            white: '#F0F4FF',
+                            blue: '#4B7BFF',
+                            purple: '#7C6BFF',
+                            cyan: '#3CC9F0',
+                        }
+                    },
+                    boxShadow: {
+                        'glow-blue': '0 0 50px -12px rgba(75, 123, 255, 0.35)',
+                        'glow-purple': '0 0 50px -12px rgba(124, 107, 255, 0.30)',
+                        'glow-cyan': '0 0 40px -12px rgba(60, 201, 240, 0.25)',
+                        'glow-rich': '0 0 60px -15px rgba(60, 201, 240, 0.25)',
+                        'soft-dark': '0 20px 40px -15px rgba(0,0,0,0.7)',
+                        'card': '0 8px 32px -8px rgba(0,0,0,0.6)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #070B15;
+            color: #F0F4FF;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .gradient-text-gemini {
+            background: linear-gradient(135deg, #3CC9F0 0%, #4B7BFF 45%, #7C6BFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(75, 123, 255, 0.15));
+        }
+
+        .gradient-btn-primary {
+            background: linear-gradient(135deg, #3CC9F0 0%, #4B7BFF 50%, #7C6BFF 100%);
+            border: 1px solid rgba(75, 123, 255, 0.3);
+            transition: all 0.25s ease;
+            color: #fff;
+            box-shadow: 0 0 40px -10px rgba(60, 201, 240, 0.2);
+        }
+        .gradient-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 60px -8px rgba(75, 123, 255, 0.4);
+            border-color: rgba(75, 123, 255, 0.6);
+        }
+
+        .gradient-btn-secondary {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, #C7D4F0 100%);
+            color: #070B15;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.25s ease;
+            box-shadow: 0 0 30px -10px rgba(75, 123, 255, 0.15);
+        }
+        .gradient-btn-secondary:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #FFFFFF 0%, #D6E2FF 100%);
+            box-shadow: 0 0 50px -8px rgba(75, 123, 255, 0.25);
+        }
+
+        /* Let's Talk button with blue gradient on the right side */
+        .gradient-btn-letstalk {
+            background: linear-gradient(135deg, #E8F0FE 0%, #4B7BFF 100%);
+            color: #FFFFFF;
+            border: 1px solid rgba(75, 123, 255, 0.4);
+            transition: all 0.25s ease;
+            box-shadow: 0 0 30px -10px rgba(75, 123, 255, 0.2);
+        }
+        .gradient-btn-letstalk:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #F0F6FF 0%, #5E8CFF 100%);
+            box-shadow: 0 0 50px -8px rgba(75, 123, 255, 0.4);
+            border-color: rgba(75, 123, 255, 0.7);
+        }
+        .gradient-btn-letstalk .fa-comment-dots {
+            color: #FFFFFF;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, rgba(15, 22, 38, 0.9), rgba(20, 29, 51, 0.6));
+            border: 1px solid rgba(30, 42, 69, 0.8);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            border-color: rgba(75, 123, 255, 0.4);
+            box-shadow: 0 16px 48px -12px rgba(75, 123, 255, 0.12);
+            background: linear-gradient(145deg, rgba(20, 29, 51, 0.9), rgba(30, 42, 69, 0.7));
+        }
+
+        .step-circle {
+            border: 1px solid rgba(75, 123, 255, 0.25);
+            background: linear-gradient(135deg, rgba(60, 201, 240, 0.1), rgba(124, 107, 255, 0.1));
+            box-shadow: 0 0 30px -10px rgba(75, 123, 255, 0.15);
+        }
+
+        .faq-btn:hover .faq-icon {
+            transform: rotate(90deg);
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        #chatOutput::-webkit-scrollbar {
+            width: 3px;
+        }
+        #chatOutput::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #chatOutput::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3CC9F0, #4B7BFF);
+            border-radius: 10px;
+        }
+
+        .glow-ambient {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: 0.20;
+        }
+
+        /* ----- REVIEW CAROUSEL (Infinite Scroll) ----- */
+        .review-track-wrapper {
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            position: relative;
+        }
+
+        .review-track {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .review-card {
+            flex: 0 0 260px;
+            min-width: 260px;
+            background: linear-gradient(145deg, rgba(15, 22, 38, 0.95), rgba(20, 29, 51, 0.7));
+            border: 1px solid rgba(30, 42, 69, 0.8);
+            border-radius: 1.25rem;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6);
+        }
+        .review-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(75, 123, 255, 0.4);
+            box-shadow: 0 16px 48px -12px rgba(75, 123, 255, 0.15);
+            background: linear-gradient(145deg, rgba(20, 29, 51, 0.95), rgba(30, 42, 69, 0.8));
+        }
+
+        .review-card .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 9999px;
+            background: rgba(75, 123, 255, 0.1);
+            border: 1px solid rgba(75, 123, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.7rem;
+            color: #C7D4F0;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .review-card .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .review-card .stars {
+            background: #1E2A45;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.15rem;
+            font-size: 0.6rem;
+            color: #C7D4F0;
+        }
+        .review-card .stars .fa-star {
+            color: #FBBF24;
+        }
+        .review-card .stars .fa-regular.fa-star {
+            color: #4B5A7A;
+        }
+
+        @media (min-width: 640px) {
+            .review-card {
+                flex: 0 0 280px;
+                min-width: 280px;
+            }
+        }
+
+        /* Page transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Menu */
+        #mobileMenu {
+            transition: all 0.3s ease-in-out;
+            transform-origin: top center;
+        }
+        #mobileMenu.hidden {
+            display: none;
+        }
+        #mobileMenu:not(.hidden) {
+            display: block;
+            animation: slideDown 0.3s ease forwards;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient rich glows -->
+    <div class="glow-ambient top-[-250px] left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[#3CC9F0]"></div>
+    <div class="glow-ambient bottom-[-200px] right-[-150px] w-[700px] h-[450px] bg-[#7C6BFF]"></div>
+    <div class="glow-ambient top-[30%] left-[-150px] w-[500px] h-[400px] bg-[#4B7BFF]"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
+        <div class="flex items-center justify-between bg-[#0F1626]/80 backdrop-blur-xl border border-[#1E2A45] px-6 py-3.5 rounded-2xl shadow-soft-dark">
+            <!-- Brand -->
+            <a href="#" onclick="navigateTo('page-home')" class="flex items-center gap-2.5 group cursor-pointer">
+                <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 group-hover:border-[#4B7BFF]/40 transition-all duration-200 group-hover:scale-105">
+                    <img src="Images/logo.png" alt="Xemn Agents" class="w-7 h-7 object-contain" />
+                </div>
+                <span class="font-extrabold text-lg tracking-tight text-white">Xemn <span class="gradient-text-gemini">Agents</span></span>
+            </a>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden md:flex items-center gap-6 font-medium text-[#7B8BB0] text-sm">
+                <a href="#" onclick="navigateTo('page-home')" data-page="page-home" class="nav-link hover:text-[#4B7BFF] transition-colors active-page text-[#4B7BFF] font-bold">Home</a>
+                <a href="#" onclick="navigateTo('page-services')" data-page="page-services" class="nav-link hover:text-[#4B7BFF] transition-colors">Services</a>
+                <a href="#" onclick="navigateTo('page-faq')" data-page="page-faq" class="nav-link hover:text-[#4B7BFF] transition-colors">FAQ</a>
+                <a href="#" onclick="navigateTo('page-pricing')" data-page="page-pricing" class="nav-link hover:text-[#4B7BFF] transition-colors">Pricing</a>
+            </nav>
+
+            <!-- Right controls -->
+            <div class="flex items-center gap-4">
+                <!-- Mobile Menu Toggle -->
+                <button id="mobileMenuBtn" class="md:hidden text-[#C7D4F0] text-2xl p-2 hover:bg-[#4B7BFF]/10 rounded-xl transition-all">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <!-- Let's Talk CTA (updated gradient) -->
+                <button onclick="openBookingModal()" class="gradient-btn-letstalk text-sm font-semibold px-5 py-2.5 rounded-full shadow-glow-blue hover:shadow-lg transition-all duration-200 flex items-center gap-2 transform active:scale-95">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>Let's Talk</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden mt-3 bg-[#0F1626]/95 backdrop-blur-xl border border-[#1E2A45] rounded-2xl shadow-2xl p-4 z-50">
+            <div class="flex flex-col gap-3 text-center">
+                <a href="#" onclick="navigateTo('page-home')" class="text-white font-bold hover:text-[#4B7BFF] py-2">Home</a>
+                <a href="#" onclick="navigateTo('page-services')" class="text-[#7B8BB0] hover:text-[#4B7BFF] py-2">Services</a>
+                <a href="#" onclick="navigateTo('page-faq')" class="text-[#7B8BB0] hover:text-[#4B7BFF] py-2">FAQ</a>
+                <a href="#" onclick="navigateTo('page-pricing')" class="text-[#7B8BB0] hover:text-[#4B7BFF] py-2">Pricing</a>
+                <!-- Mobile Let's Talk Button -->
+                <button onclick="openBookingModal()" class="gradient-btn-letstalk font-bold px-4 py-2.5 rounded-full w-full flex items-center justify-center gap-2 mt-2">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>Let's Talk</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT (PAGES) ===== -->
+    <main class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+
+        <!-- ========== HOME PAGE ========== -->
+        <section id="page-home" class="page active">
+            <div class="text-center pt-8 pb-4 flex flex-col items-center">
+                <!-- Pills -->
+                <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
+                    <div class="pill-badge text-[#C7D4F0] text-xs sm:text-sm font-medium px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-wrench text-[#4B7BFF] text-xs"></i>
+                        <span>Personalised setup for your business</span>
+                    </div>
+                    <div class="pill-badge text-[#C7D4F0] text-xs sm:text-sm font-medium px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
+                        <span class="font-mono text-xs font-semibold text-[#4B7BFF]">&lt;&nbsp;&gt;</span>
+                        <span>No code required</span>
+                    </div>
+                </div>
+
+                <!-- Headline -->
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 max-w-4xl">
+                    Wake up to an AI team&nbsp;<span class="text-[#C7D4F0] drop-shadow-[0_0_30px_rgba(75,123,255,0.1)]">already</span>&nbsp;<span class="gradient-text-gemini">working for you.</span>
+                </h1>
+
+                <!-- Subhead -->
+                <p class="text-base sm:text-xl text-[#7B8BB0] font-normal max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Everything your business or personal workflow needs, set up and running — in 24-72 hours.
+                </p>
+
+                <!-- CTA row -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-lg mb-6">
+                    <button onclick="openBookingModal()" class="w-full sm:w-auto flex-1 gradient-btn-secondary text-[#070B15] font-bold text-base px-6 py-4 rounded-2xl shadow-glow-blue hover:scale-[1.02] active:scale-98 transition-all duration-200 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-calendar-days text-[#070B15]/70"></i>
+                        <span>Book a Free Discovery Call</span>
+                    </button>
+                    <a href="https://wa.me/" target="_blank" class="w-full sm:w-auto flex-1 gradient-btn-primary text-white font-bold text-base px-6 py-4 rounded-2xl shadow-glow-rich hover:scale-[1.02] active:scale-98 transition-all duration-200 flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-white/90 text-xl"></i>
+                        <span>Message Us on WhatsApp</span>
+                    </a>
+                </div>
+
+                <!-- Trust -->
+                <div class="flex items-center justify-center gap-2 text-xs sm:text-sm text-[#4B7BFF]/60 font-medium mb-16">
+                    <i class="fa-solid fa-circle-check text-[#4B7BFF] text-xs"></i>
+                    <span>Trusted by 100+ businesses worldwide</span>
+                </div>
+
+                <!-- ===== REVIEWS: INFINITE SCROLL LEFT ===== -->
+                <div class="w-full max-w-6xl mt-4">
+                    <div class="review-track-wrapper">
+                        <div id="reviewTrack" class="review-track">
+                            <!-- Cards will be injected by JS (doubled for infinite loop) -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How It Works (Summary) -->
+                <div class="w-full max-w-6xl mt-20 bg-[#0F1626]/60 backdrop-blur-md rounded-3xl p-8 border border-[#1E2A45]">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3 gradient-text-gemini text-center">How It Works</h2>
+                    <p class="text-[#7B8BB0] text-sm sm:text-base text-center mb-10">Up and running in 3 simple steps</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full step-circle text-white font-bold flex items-center justify-center mb-4 text-lg shadow-glow-blue border border-[#4B7BFF]/30 bg-gradient-to-br from-[#4B7BFF]/20 to-[#3CC9F0]/10">1</div>
+                            <h3 class="font-bold text-white mb-1">Book a Discovery Call</h3>
+                            <p class="text-xs text-[#7B8BB0]">Share your business goals and current repetitive tasks.</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full step-circle text-white font-bold flex items-center justify-center mb-4 text-lg shadow-glow-purple border border-[#7C6BFF]/30 bg-gradient-to-br from-[#7C6BFF]/20 to-[#4B7BFF]/10">2</div>
+                            <h3 class="font-bold text-white mb-1">Custom Architecture Setup</h3>
+                            <p class="text-xs text-[#7B8BB0]">We configure your dedicated AI agents and integrations.</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full step-circle text-white font-bold flex items-center justify-center mb-4 text-lg shadow-glow-cyan border border-[#3CC9F0]/30 bg-gradient-to-br from-[#3CC9F0]/20 to-[#7C6BFF]/10">3</div>
+                            <h3 class="font-bold text-white mb-1">Go Live &amp; Hands-Free</h3>
+                            <p class="text-xs text-[#7B8BB0]">Wake up in 24-72 hours to fully automated workflows.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SERVICES PAGE ========== -->
+        <section id="page-services" class="page">
+            <div class="pt-8 pb-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-5xl font-bold mb-4 gradient-text-gemini">Our AI Services</h2>
+                    <p class="text-[#7B8BB0] text-base sm:text-lg max-w-3xl mx-auto">End-to-end AI automation tailored to your business needs. We handle everything from setup to deployment.</p>
+                </div>
+
+                <!-- Service Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="card-hover rounded-2xl p-6 shadow-card backdrop-blur-sm">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#4B7BFF]/20 to-[#3CC9F0]/10 border border-[#4B7BFF]/20 text-[#4B7BFF] flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">24/7 AI Customer Support</h3>
+                        <p class="text-sm text-[#7B8BB0] leading-relaxed">Instant answer bots trained on your custom documentation, databases, and FAQs across WhatsApp, web, or email.</p>
+                    </div>
+                    <div class="card-hover rounded-2xl p-6 shadow-card backdrop-blur-sm">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7C6BFF]/20 to-[#4B7BFF]/10 border border-[#7C6BFF]/20 text-[#7C6BFF] flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Auto Scheduling &amp; Follow-ups</h3>
+                        <p class="text-sm text-[#7B8BB0] leading-relaxed">Qualify leads dynamically, schedule meetings automatically into your calendar, and trigger follow-up emails instantly.</p>
+                    </div>
+                    <div class="card-hover rounded-2xl p-6 shadow-card backdrop-blur-sm">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3CC9F0]/20 to-[#7C6BFF]/10 border border-[#3CC9F0]/20 text-[#3CC9F0] flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Custom Workflow Agents</h3>
+                        <p class="text-sm text-[#7B8BB0] leading-relaxed">Connect your calendar, email, and payment tools to run on autopilot. We handle the complex logic so you don't have to.</p>
+                    </div>
+                </div>
+
+                <!-- Custom Agents Bar -->
+                <div class="mt-6 mb-16 text-center p-5 rounded-2xl border border-dashed border-[#4B7BFF]/30 bg-[#0F1626]/40">
+                    <p class="text-md font-semibold text-[#C7D4F0]">⚡ Need something completely unique?</p>
+                    <p class="text-sm text-[#7B8BB0]">We build fully custom AI agents tailored to your exact workflows — just ask.</p>
+                </div>
+
+                <!-- Integrations Section -->
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl sm:text-4xl font-bold mb-4 gradient-text-gemini">Seamless Integrations</h3>
+                    <p class="text-[#7B8BB0] text-base max-w-3xl mx-auto">Xemn Agents connects natively with the tools you already use. Here are the top 15 Openclaw-supported platforms:</p>
+                </div>
+
+                <!-- Top 15 Logos Grid -->
+                <div class="grid grid-cols-3 sm:grid-cols-5 gap-6 mb-8">
+                    <div id="integrationsGrid" class="col-span-3 sm:col-span-5 grid grid-cols-3 sm:grid-cols-5 gap-6"></div>
+                </div>
+
+                <!-- 10,000+ more -->
+                <div class="text-center p-6 rounded-2xl border border-dashed border-[#4B7BFF]/30 bg-[#0F1626]/40">
+                    <p class="text-lg font-bold text-[#C7D4F0]">... and <span class="gradient-text-gemini">10,000+</span> more apps &amp; tools</p>
+                    <p class="text-xs text-[#7B8BB0] mt-1">From CRMs to marketing automation, we've got you covered.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== FAQ PAGE ========== -->
+        <section id="page-faq" class="page">
+            <div class="pt-8 pb-4 max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-5xl font-bold mb-4 gradient-text-gemini">Frequently Asked Questions</h2>
+                    <p class="text-[#7B8BB0] text-base">Everything you need to know about setting up your AI assistant.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
+                        <button onclick="toggleFaq('faq1')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
+                            <span>Do I need technical skills or coding knowledge?</span>
+                            <i id="faq1-icon" class="faq-icon fa-solid fa-chevron-down text-[#4B7BFF]/50 transition-transform"></i>
+                        </button>
+                        <div id="faq1" class="hidden px-5 pb-5 text-xs sm:text-sm text-[#7B8BB0] leading-relaxed border-t border-[#1E2A45] pt-3">
+                            No! Our service is 100% done-for-you. We handle all backend integrations, API credentials, prompt engineering, and memory store configurations. You simply receive an easy-to-use control dashboard.
+                        </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                    <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
+                        <button onclick="toggleFaq('faq2')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
+                            <span>How long does the initial setup take?</span>
+                            <i id="faq2-icon" class="faq-icon fa-solid fa-chevron-down text-[#4B7BFF]/50 transition-transform"></i>
+                        </button>
+                        <div id="faq2" class="hidden px-5 pb-5 text-xs sm:text-sm text-[#7B8BB0] leading-relaxed border-t border-[#1E2A45] pt-3">
+                            Most custom workflows and AI team setups are completely deployed and tested within <strong>24 to 72 hours</strong> following our initial discovery session.
+                        </div>
+                    </div>
+                    <!-- FAQ 3 -->
+                    <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
+                        <button onclick="toggleFaq('faq3')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
+                            <span>Can it integrate with WhatsApp and email?</span>
+                            <i id="faq3-icon" class="faq-icon fa-solid fa-chevron-down text-[#4B7BFF]/50 transition-transform"></i>
+                        </button>
+                        <div id="faq3" class="hidden px-5 pb-5 text-xs sm:text-sm text-[#7B8BB0] leading-relaxed border-t border-[#1E2A45] pt-3">
+                            Yes! We support native integrations with WhatsApp Business, Gmail, Outlook, Slack, Telegram, Hubspot, and over 10,000+ app connectors via webhook.
+                        </div>
+                    </div>
+                    <!-- FAQ 4 -->
+                    <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
+                        <button onclick="toggleFaq('faq4')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
+                            <span>Is my data secure and private?</span>
+                            <i id="faq4-icon" class="faq-icon fa-solid fa-chevron-down text-[#4B7BFF]/50 transition-transform"></i>
+                        </button>
+                        <div id="faq4" class="hidden px-5 pb-5 text-xs sm:text-sm text-[#7B8BB0] leading-relaxed border-t border-[#1E2A45] pt-3">
+                            Absolutely. We use enterprise-grade encryption, and your data is never used to train public models. All integrations are OAuth-based, meaning we never store your passwords.
+                        </div>
+                    </div>
+                    <!-- FAQ 5 -->
+                    <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
+                        <button onclick="toggleFaq('faq5')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
+                            <span>What if I need changes after the setup?</span>
+                            <i id="faq5-icon" class="faq-icon fa-solid fa-chevron-down text-[#4B7BFF]/50 transition-transform"></i>
+                        </button>
+                        <div id="faq5" class="hidden px-5 pb-5 text-xs sm:text-sm text-[#7B8BB0] leading-relaxed border-t border-[#1E2A45] pt-3">
+                            We provide ongoing support and maintenance packages. Our team is always available to tweak prompts, add new integrations, or scale your AI capabilities as your business grows.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PRICING PAGE ========== -->
+        <section id="page-pricing" class="page">
+            <div class="pt-20 text-center max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold gradient-text-gemini mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-[#7B8BB0] text-lg mb-8">Custom quotes tailored to your specific workflow complexity.</p>
+                <div class="bg-[#0F1626]/60 backdrop-blur-md rounded-3xl p-8 border border-[#1E2A45]">
+                    <p class="text-[#C7D4F0] text-xl font-bold">Starting from <span class="gradient-text-gemini text-4xl">$499</span> / setup</p>
+                    <p class="text-[#7B8BB0] text-sm mt-2">Includes full architecture design, integration setup, and 1 week of support.</p>
+                    <button onclick="openBookingModal()" class="mt-6 gradient-btn-primary text-white font-bold px-8 py-3 rounded-full shadow-glow-rich hover:shadow-lg transition-all">Book a Discovery Call</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FLOATING CHAT ===== -->
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3 pointer-events-auto">
+        <div id="chatWidgetBox" class="hidden bg-[#0F1626]/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-[#1E2A45] p-4 w-72 sm:w-80 transition-all duration-300 transform origin-bottom-right shadow-black/80">
+            <div class="flex items-center justify-between pb-3 border-b border-[#1E2A45] mb-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm">👋</span>
+                    <h3 class="text-xs sm:text-sm font-bold gradient-text-gemini">Hi! How can we help?</h3>
+                </div>
+                <button onclick="minimizeChatWidget()" class="text-[#4B7BFF]/50 hover:text-white text-xs p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="chatOutput" class="max-h-48 overflow-y-auto mb-3 space-y-2 text-xs">
+                <div class="bg-[#141D33] p-2.5 rounded-xl text-[#C7D4F0] leading-relaxed border border-[#1E2A45]">
+                    Select a question below or message us to speak directly with an AI specialist!
+                </div>
+            </div>
+            <div id="pillButtonsStack" class="flex flex-col gap-2 items-end">
+                <button onclick="handlePillClick('I have a question')" class="w-fit text-right bg-[#141D33] hover:bg-gradient-to-r hover:from-[#4B7BFF]/20 hover:to-[#3CC9F0]/10 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-xl px-3 py-1.5 text-xs font-medium transition-all shadow-sm active:scale-95">I have a question</button>
+                <button onclick="handlePillClick('How is this going to work')" class="w-fit text-right bg-[#141D33] hover:bg-gradient-to-r hover:from-[#4B7BFF]/20 hover:to-[#3CC9F0]/10 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-xl px-3 py-1.5 text-xs font-medium transition-all shadow-sm active:scale-95">How is this going to work</button>
+                <button onclick="handlePillClick('What services do you offer?')" class="w-fit text-right bg-[#141D33] hover:bg-gradient-to-r hover:from-[#4B7BFF]/20 hover:to-[#3CC9F0]/10 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-xl px-3 py-1.5 text-xs font-medium transition-all shadow-sm active:scale-95">What services do you offer?</button>
+                <button onclick="handlePillClick('How long does the setup process take?')" class="w-fit text-right bg-[#141D33] hover:bg-gradient-to-r hover:from-[#4B7BFF]/20 hover:to-[#3CC9F0]/10 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-xl px-3 py-1.5 text-xs font-medium transition-all shadow-sm active:scale-95">How long does the setup process take?</button>
+            </div>
+        </div>
+
+        <button id="floatingToggleBtn" onclick="toggleChatWidgetBox()" class="relative pulse-effect w-13 h-13 sm:w-14 sm:h-14 gradient-btn-primary text-white rounded-full flex items-center justify-center shadow-glow-rich transition-transform hover:scale-105 active:scale-95">
+            <i class="fa-solid fa-comment-dots text-xl text-white/95"></i>
+            <span id="unreadBadge" class="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-[#3CC9F0] to-[#4B7BFF] text-[#070B15] text-[10px] font-bold rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm shadow-glow-cyan">1</span>
+        </button>
+    </div>
+
+    <!-- ===== BOOKING MODAL ===== -->
+    <div id="bookingModal" class="fixed inset-0 bg-[#070B15]/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#0F1626] border border-[#1E2A45] rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative transform transition-all">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-[#4B7BFF]/50 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-[#4B7BFF]/20 to-[#3CC9F0]/10 border border-[#4B7BFF]/20 text-[#4B7BFF] rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <h3 class="text-xl font-bold gradient-text-gemini">Book Free Discovery Call</h3>
+                <p class="text-xs text-[#7B8BB0] mt-1">Pick a convenient time to discuss your AI assistant setup.</p>
+            </div>
+            <form onsubmit="submitBooking(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-[#C7D4F0] mb-1">Your Full Name</label>
+                    <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-[#141D33] border border-[#1E2A45] text-sm text-white focus:outline-none focus:border-[#4B7BFF] placeholder-[#4B7BFF]/40" />
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-[#C7D4F0] mb-1">Email Address</label>
+                    <input type="email" required placeholder="john@company.com" class="w-full px-4 py-3 rounded-xl bg-[#141D33] border border-[#1E2A45] text-sm text-white focus:outline-none focus:border-[#4B7BFF] placeholder-[#4B7BFF]/40" />
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-[#C7D4F0] mb-1">Select Date &amp; Time</label>
+                    <input type="datetime-local" required class="w-full px-4 py-3 rounded-xl bg-[#141D33] border border-[#1E2A45] text-sm text-white focus:outline-none focus:border-[#4B7BFF]" />
+                </div>
+                <button type="submit" class="w-full gradient-btn-primary text-white font-bold py-3.5 rounded-xl text-sm shadow-glow-rich hover:shadow-lg transition-all mt-2">
+                    Confirm Free Booking
+                </button>
+            </form>
+            <div id="bookingSuccess" class="hidden text-center py-6 text-[#C7D4F0] text-sm font-semibold">
+                <i class="fa-solid fa-circle-check text-3xl mb-2 block text-[#4B7BFF]"></i>
+                Booking Received! We will send you a calendar invite shortly.
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="relative z-10 w-full border-t border-[#1E2A45] py-8 text-center text-xs text-[#4B7BFF]/40">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-[#C7D4F0]">Xemn Agents</span>
+                <span>© 2026. All rights reserved.</span>
+            </div>
+            <div class="flex items-center gap-6 text-[#7B8BB0] font-medium">
+                <a href="#" class="hover:text-[#4B7BFF] transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-[#4B7BFF] transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-[#4B7BFF] transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // ===== NAVIGATION =====
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-[#4B7BFF]', 'font-bold');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('text-[#4B7BFF]', 'font-bold');
+                }
+            });
+            document.getElementById('mobileMenu').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== MOBILE MENU TOGGLE =====
+        document.getElementById('mobileMenuBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.getElementById('mobileMenuBtn');
+            if (!menu.classList.contains('hidden') && !btn.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // ===== FAQ =====
+        function toggleFaq(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                el.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // ===== CHAT WIDGET =====
+        function minimizeChatWidget() {
+            document.getElementById('chatWidgetBox').classList.add('hidden');
+        }
+
+        function toggleChatWidgetBox() {
+            const widget = document.getElementById('chatWidgetBox');
+            widget.classList.toggle('hidden');
+            const badge = document.getElementById('unreadBadge');
+            if (badge) badge.classList.add('hidden');
+        }
+
+        const answersMap = {
+            'I have a question': 'Great! What question do you have? You can type it here or book a free discovery call with our engineers.',
+            'How is this going to work': 'We jump on a 15-min discovery call, analyze your workflow, build your custom AI agents within 24-72 hours, and deliver a ready-to-run setup!',
+            'What services do you offer?': 'We build custom AI support bots, lead qualification pipelines, WhatsApp/email automation, and Openclaw workflow agents.',
+            'How long does the setup process take?': 'Our standard setup takes between 24 and 72 hours from your initial call.'
+        };
+
+        function handlePillClick(questionText) {
+            const output = document.getElementById('chatOutput');
+            const userMsg = document.createElement('div');
+            userMsg.className =
+                'bg-gradient-to-r from-[#4B7BFF]/30 to-[#3CC9F0]/20 text-white p-2.5 rounded-xl text-right font-medium text-xs leading-relaxed border border-[#4B7BFF]/30 self-end ml-auto max-w-[85%]';
+            userMsg.innerText = questionText;
+            output.appendChild(userMsg);
+
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'bg-[#141D33] text-[#C7D4F0] p-2.5 rounded-xl text-xs leading-relaxed border border-[#1E2A45] max-w-[90%]';
+                botMsg.innerText = answersMap[questionText] ||
+                    'Thank you for reaching out! Book a call to speak directly with our team.';
+                output.appendChild(botMsg);
+                output.scrollTop = output.scrollHeight;
+            }, 400);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // ===== BOOKING =====
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+
+        function submitBooking(e) {
+            e.preventDefault();
+            const form = e.target;
+            form.classList.add('hidden');
+            document.getElementById('bookingSuccess').classList.remove('hidden');
+            setTimeout(() => {
+                closeBookingModal();
+                form.reset();
+                form.classList.remove('hidden');
+                document.getElementById('bookingSuccess').classList.add('hidden');
+            }, 2500);
+        }
+
+        // ================================================================
+        // ===== REVIEWS: INFINITE SCROLL (LEFT) =====
+        // ================================================================
+
+        const reviewData = [{
+            name: 'Andy Watkins',
+            country: 'US',
+            initials: 'AW',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+            stars: 5,
+            text: 'Easy to book and get the work done. Will use them again!'
+        }, {
+            name: 'Chris Mateo',
+            country: 'US',
+            initials: 'CM',
+            avatar: null,
+            stars: 5,
+            text: 'Great service and support they got me set up and running in 2 days!'
+        }, {
+            name: 'Darach Gannon',
+            country: 'IE',
+            initials: 'DG',
+            avatar: null,
+            stars: 5,
+            text: 'I had set up Openclaw myself but hit some problems with memory management. Xemn Agents resolved everything seamlessly.'
+        }, {
+            name: 'Jewelryroom',
+            country: 'HK',
+            initials: 'JE',
+            avatar: null,
+            stars: 5,
+            text: 'Skeptical at first, but these guys are legit. Got on a call, shared screen, and they had my AI workflows running in hours.'
+        }, {
+            name: 'Mike Chen',
+            country: 'SG',
+            initials: 'MC',
+            avatar: null,
+            stars: 4,
+            text: 'I needed custom AI agents for lead qualification. They set up the entire Openclaw integration and it works flawlessly.'
+        }, {
+            name: 'Sarah Kim',
+            country: 'KR',
+            initials: 'SK',
+            avatar: null,
+            stars: 5,
+            text: 'They helped me set up AI software for customer support across WhatsApp and email. The setup was quick and the support is great.'
+        }];
+
+        function renderStars(count) {
+            let html = '';
+            for (let i = 0; i < 5; i++) {
+                html += (i < count) ?
+                    '<i class="fa-solid fa-star"></i>' :
+                    '<i class="fa-regular fa-star"></i>';
+            }
+            return html;
+        }
+
+        function buildReviewCardHTML(review) {
+            const avatarHtml = review.avatar ?
+                `<img src="${review.avatar}" alt="${review.name}" />` :
+                `<span>${review.initials}</span>`;
+
+            return `
+                        <div class="review-card">
+                            <div>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="avatar">${avatarHtml}</div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-white flex items-center gap-1">${review.name}</h4>
+                                        <span class="text-[10px] text-[#4B7BFF]/50 font-medium uppercase tracking-wider">${review.country}</span>
+                                    </div>
+                                </div>
+                                <div class="stars">${renderStars(review.stars)}</div>
+                                <p class="text-xs text-[#C7D4F0]/80 leading-relaxed mt-2">${review.text}</p>
+                            </div>
+                        </div>
+                    `;
+        }
+
+        const track = document.getElementById('reviewTrack');
+
+        // Build initial set of cards
+        let cardsHTML = '';
+        reviewData.forEach(r => { cardsHTML += buildReviewCardHTML(r); });
+
+        // Duplicate the set for infinite loop (we need at least 2 sets to loop seamlessly)
+        track.innerHTML = cardsHTML + cardsHTML;
+
+        // Start the infinite scroll animation
+        let scrollOffset = 0;
+        const speed = 0.4; // pixels per frame
+
+        function animateInfiniteScroll() {
+            // Get the width of the first set of cards (half of the total track width)
+            // Since we have 2 identical sets, the total width is 2x the original.
+            // When we've scrolled past the first set, we reset to 0.
+            const totalWidth = track.scrollWidth / 2;
+
+            scrollOffset -= speed;
+            if (Math.abs(scrollOffset) >= totalWidth) {
+                scrollOffset = 0;
+            }
+
+            track.style.transform = `translateX(${scrollOffset}px)`;
+            requestAnimationFrame(animateInfiniteScroll);
+        }
+
+        // Start the animation loop
+        requestAnimationFrame(animateInfiniteScroll);
+
+
+        // ===== INTEGRATIONS GRID (Top 15 - All Blue, includes Claude) =====
+        const integrations = [
+            { name: 'Slack', slug: 'slack' },
+            { name: 'Google Calendar', slug: 'googlecalendar' },
+            { name: 'Discord', slug: 'discord' },
+            { name: 'Notion', slug: 'notion' },
+            { name: 'HubSpot', slug: 'hubspot' },
+            { name: 'GitHub', slug: 'github' },
+            { name: 'ElevenLabs', slug: 'elevenlabs' },
+            { name: 'YouTube', slug: 'youtube' },
+            { name: 'Google Ads', slug: 'googleads' },
+            { name: 'Airtable', slug: 'airtable' },
+            { name: 'Salesforce', slug: 'salesforce' },
+            { name: 'Zapier', slug: 'zapier' },
+            { name: 'Make', slug: 'make' },
+            { name: 'Stripe', slug: 'stripe' },
+            { name: 'Claude', slug: 'claude' }
+        ];
+
+        const grid = document.getElementById('integrationsGrid');
+        if (grid) {
+            integrations.forEach(item => {
+                const div = document.createElement('div');
+                div.className =
+                    'flex flex-col items-center justify-center p-4 rounded-xl bg-[#0F1626]/60 border border-[#1E2A45] hover:border-[#4B7BFF]/40 transition-all hover:shadow-glow-blue min-h-[90px]';
+                div.innerHTML = `
+                                <img src="https://cdn.simpleicons.org/${item.slug}/4B7BFF" alt="${item.name}" class="h-8 w-8 md:h-10 md:w-10 mb-2" onerror="this.onerror=null; this.src='https://www.google.com/s2/favicons?domain=${item.name.toLowerCase().replace(' ', '')}.com&sz=64';" />
+                                <span class="text-xs text-[#C7D4F0] font-medium text-center">${item.name}</span>
+                            `;
+                grid.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>
