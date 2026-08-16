@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Xemn Agents | Gemini‑inspired AI Team</title>
+    <title>Xemn Agents | Your Autonomous AI Team</title>
     <!-- Favicon -->
     <link rel="icon" href="Images/favicon.png" type="image/png" />
     <script src="https://cdn.tailwindcss.com">
@@ -147,15 +147,15 @@
             transition: transform 0.3s ease;
         }
 
-        #chatOutput::-webkit-scrollbar {
-            width: 3px;
+        #chatOutput {
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            max-height: 192px;
+            scroll-behavior: smooth;
         }
-        #chatOutput::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        #chatOutput::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #3CC9F0, #4B7BFF);
-            border-radius: 10px;
+
+        #chatWidgetBox {
+            overflow: hidden;
         }
 
         .glow-ambient {
@@ -167,7 +167,6 @@
             opacity: 0.20;
         }
 
-        /* ----- REVIEW CAROUSEL (Infinite Scroll) ----- */
         .review-track-wrapper {
             overflow: hidden;
             mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
@@ -247,7 +246,6 @@
             }
         }
 
-        /* Page transitions */
         .page {
             display: none;
             animation: fadeIn 0.3s ease-in-out;
@@ -266,7 +264,6 @@
             }
         }
 
-        /* Mobile Menu */
         #mobileMenu {
             transition: all 0.3s ease-in-out;
             transform-origin: top center;
@@ -289,7 +286,6 @@
             }
         }
 
-        /* ----- Popup modal for server details ----- */
         #popupModal {
             display: none;
             position: fixed;
@@ -338,7 +334,6 @@
             color: #fff;
         }
 
-        /* Performance result styling - extended */
         .perf-badge {
             display: inline-block;
             padding: 0.25rem 1rem;
@@ -355,7 +350,6 @@
         .perf-ultra { background: #3B82F6; color: #fff; }
         .perf-lightning { background: #8B5CF6; color: #fff; }
 
-        /* Toggle switch - always blue background */
         .toggle-switch {
             position: relative;
             display: inline-block;
@@ -375,7 +369,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #4B7BFF; /* always blue */
+            background-color: #4B7BFF;
             transition: .3s;
             border-radius: 34px;
         }
@@ -450,17 +444,13 @@
                 <a href="#" onclick="navigateTo('page-hosting')" data-page="page-hosting" class="nav-link hover:text-[#4B7BFF] transition-colors">Hosting</a>
                 <a href="#" onclick="navigateTo('page-faq')" data-page="page-faq" class="nav-link hover:text-[#4B7BFF] transition-colors">FAQ</a>
                 <a href="#" onclick="navigateTo('page-payment')" data-page="page-payment" class="nav-link hover:text-[#4B7BFF] transition-colors">Payment</a>
-                <!-- Pricing removed -->
             </nav>
 
             <!-- Right controls -->
             <div class="flex items-center gap-4">
-                <!-- Mobile Menu Toggle -->
                 <button id="mobileMenuBtn" class="md:hidden text-[#C7D4F0] text-2xl p-2 hover:bg-[#4B7BFF]/10 rounded-xl transition-all">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-
-                <!-- Let's Talk CTA -->
                 <button onclick="openBookingModal()" class="gradient-btn-letstalk text-sm font-semibold px-5 py-2.5 rounded-full shadow-glow-blue hover:shadow-lg transition-all duration-200 flex items-center gap-2 transform active:scale-95">
                     <i class="fa-solid fa-comment-dots"></i>
                     <span>Let's Talk</span>
@@ -484,13 +474,12 @@
         </div>
     </header>
 
-    <!-- ===== MAIN CONTENT (PAGES) ===== -->
+    <!-- ===== MAIN CONTENT ===== -->
     <main class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pb-16">
 
         <!-- ========== HOME PAGE ========== -->
         <section id="page-home" class="page active">
             <div class="text-center pt-8 pb-4 flex flex-col items-center">
-                <!-- Pills -->
                 <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
                     <div class="pill-badge text-[#C7D4F0] text-xs sm:text-sm font-medium px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
                         <i class="fa-solid fa-wrench text-[#4B7BFF] text-xs"></i>
@@ -502,17 +491,14 @@
                     </div>
                 </div>
 
-                <!-- Headline -->
                 <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 max-w-4xl">
                     Wake up to an AI team&nbsp;<span class="text-[#C7D4F0] drop-shadow-[0_0_30px_rgba(75,123,255,0.1)]">already</span>&nbsp;<span class="gradient-text-gemini">working for you.</span>
                 </h1>
 
-                <!-- Subhead -->
                 <p class="text-base sm:text-xl text-[#7B8BB0] font-normal max-w-2xl mx-auto mb-10 leading-relaxed">
                     Everything your business or personal workflow needs, set up and running — in 24-72 hours.
                 </p>
 
-                <!-- CTA row -->
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-lg mb-6">
                     <button onclick="openBookingModal()" class="w-full sm:w-auto flex-1 gradient-btn-secondary text-[#070B15] font-bold text-base px-6 py-4 rounded-2xl shadow-glow-blue hover:scale-[1.02] active:scale-98 transition-all duration-200 flex items-center justify-center gap-3">
                         <i class="fa-solid fa-calendar-days text-[#070B15]/70"></i>
@@ -524,22 +510,19 @@
                     </a>
                 </div>
 
-                <!-- Trust -->
                 <div class="flex items-center justify-center gap-2 text-xs sm:text-sm text-[#4B7BFF]/60 font-medium mb-16">
                     <i class="fa-solid fa-circle-check text-[#4B7BFF] text-xs"></i>
                     <span>Trusted by 100+ businesses worldwide</span>
                 </div>
 
-                <!-- ===== REVIEWS: INFINITE SCROLL LEFT ===== -->
+                <!-- REVIEWS -->
                 <div class="w-full max-w-6xl mt-4">
                     <div class="review-track-wrapper">
-                        <div id="reviewTrack" class="review-track">
-                            <!-- Cards will be injected by JS (doubled for infinite loop) -->
-                        </div>
+                        <div id="reviewTrack" class="review-track"></div>
                     </div>
                 </div>
 
-                <!-- How It Works (Summary) -->
+                <!-- How It Works -->
                 <div class="w-full max-w-6xl mt-20 bg-[#0F1626]/60 backdrop-blur-md rounded-3xl p-8 border border-[#1E2A45]">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-3 gradient-text-gemini text-center">How It Works</h2>
                     <p class="text-[#7B8BB0] text-sm sm:text-base text-center mb-10">Up and running in 3 simple steps</p>
@@ -572,7 +555,6 @@
                     <p class="text-[#7B8BB0] text-base sm:text-lg max-w-3xl mx-auto">End-to-end AI automation tailored to your business needs. We handle everything from setup to deployment.</p>
                 </div>
 
-                <!-- Service Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <div class="card-hover rounded-2xl p-6 shadow-card backdrop-blur-sm">
                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#4B7BFF]/20 to-[#3CC9F0]/10 border border-[#4B7BFF]/20 text-[#4B7BFF] flex items-center justify-center text-xl mb-4">
@@ -597,24 +579,21 @@
                     </div>
                 </div>
 
-                <!-- Custom Agents Bar -->
                 <div class="mt-6 mb-16 text-center p-5 rounded-2xl border border-dashed border-[#4B7BFF]/30 bg-[#0F1626]/40">
                     <p class="text-md font-semibold text-[#C7D4F0]">⚡ Need something completely unique?</p>
                     <p class="text-sm text-[#7B8BB0]">We build fully custom AI agents tailored to your exact workflows — just ask.</p>
                 </div>
 
-                <!-- Integrations Section -->
+                <!-- Integrations -->
                 <div class="text-center mb-12">
                     <h3 class="text-2xl sm:text-4xl font-bold mb-4 gradient-text-gemini">Seamless Integrations</h3>
                     <p class="text-[#7B8BB0] text-base max-w-3xl mx-auto">Xemn Agents connects natively with the tools you already use. Here are the top 15 Openclaw-supported platforms:</p>
                 </div>
 
-                <!-- Top 15 Logos Grid -->
                 <div class="grid grid-cols-3 sm:grid-cols-5 gap-6 mb-8">
                     <div id="integrationsGrid" class="col-span-3 sm:col-span-5 grid grid-cols-3 sm:grid-cols-5 gap-6"></div>
                 </div>
 
-                <!-- 10,000+ more -->
                 <div class="text-center p-6 rounded-2xl border border-dashed border-[#4B7BFF]/30 bg-[#0F1626]/40">
                     <p class="text-lg font-bold text-[#C7D4F0]">... and <span class="gradient-text-gemini">10,000+</span> more apps &amp; tools</p>
                     <p class="text-xs text-[#7B8BB0] mt-1">From CRMs to marketing automation, we've got you covered.</p>
@@ -630,7 +609,7 @@
                     <p class="text-[#7B8BB0] text-base sm:text-lg max-w-3xl mx-auto">Choose your AI backend. All major APIs supported, or run fully private on your own hardware.</p>
                 </div>
 
-                <!-- API Options with Icons and Pricing -->
+                <!-- APIs -->
                 <div class="mb-20">
                     <h3 class="text-2xl font-bold text-white mb-6 text-center">Top AI APIs</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -647,7 +626,6 @@
                                 <p><span class="text-[#7B8BB0]">Best:</span> 3.1 Pro — $104.75/mo</p>
                             </div>
                         </div>
-
                         <!-- DeepSeek -->
                         <div class="card-hover rounded-2xl p-6 text-center">
                             <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
@@ -661,8 +639,7 @@
                                 <p><span class="text-[#7B8BB0]">Best:</span> V4 Pro — $11.39/mo</p>
                             </div>
                         </div>
-
-                        <!-- OpenAI (local image) -->
+                        <!-- OpenAI -->
                         <div class="card-hover rounded-2xl p-6 text-center">
                             <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
                                 <img src="Images/openai.png" alt="OpenAI" class="w-8 h-8" />
@@ -675,7 +652,6 @@
                                 <p><span class="text-[#7B8BB0]">Best:</span> GPT‑5.5 — $261.88/mo</p>
                             </div>
                         </div>
-
                         <!-- Claude -->
                         <div class="card-hover rounded-2xl p-6 text-center">
                             <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
@@ -695,11 +671,10 @@
                     </div>
                 </div>
 
-                <!-- GPU Rental Services (using local images) -->
+                <!-- GPU Rentals -->
                 <div class="mb-20">
                     <h3 class="text-2xl font-bold text-white mb-6 text-center">GPU Rental Services</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- Vast.ai -->
                         <div class="card-hover rounded-2xl p-6 text-center">
                             <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
                                 <img src="Images/vast.png" alt="Vast.ai" class="w-8 h-8" />
@@ -711,7 +686,6 @@
                                 <p><span class="text-[#7B8BB0]">GPUs:</span> NVIDIA A100, RTX 4090, more</p>
                             </div>
                         </div>
-                        <!-- Runpod -->
                         <div class="card-hover rounded-2xl p-6 text-center">
                             <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
                                 <img src="Images/runpod.png" alt="Runpod" class="w-8 h-8" />
@@ -723,7 +697,6 @@
                                 <p><span class="text-[#7B8BB0]">GPUs:</span> A100, H100, RTX 4090</p>
                             </div>
                         </div>
-                        <!-- Lambda Labs -->
                         <div class="card-hover rounded-2xl p-6 text-center">
                             <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
                                 <img src="Images/lambda.png" alt="Lambda Labs" class="w-8 h-8" />
@@ -735,7 +708,6 @@
                                 <p><span class="text-[#7B8BB0]">GPUs:</span> A100, H100, RTX 6000</p>
                             </div>
                         </div>
-                        <!-- Paperspace -->
                         <div class="card-hover rounded-2xl p-6 text-center">
                             <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
                                 <img src="Images/paperspace.png" alt="Paperspace" class="w-8 h-8" />
@@ -753,22 +725,14 @@
                     </div>
                 </div>
 
-                <!-- Private Servers - Hosted by You -->
+                <!-- Private Servers -->
                 <div>
                     <h3 class="text-2xl font-bold text-white mb-4 text-center">Private Servers – <span class="gradient-text-gemini">Hosted by You</span></h3>
                     <p class="text-[#7B8BB0] text-center max-w-3xl mx-auto mb-10 text-sm">
                         Run your AI entirely private on your own hardware. Choose a pre‑built workstation, bring your own machine, or build a custom PC.
                     </p>
-
-                    <!-- Grid for the three new cards (Minisforum, Custom PC, AMD) -->
-                    <div id="serverGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- will be generated by JS -->
-                    </div>
-
-                    <!-- Bring Your Own card (full width below) -->
-                    <div id="byoContainer" class="mt-10">
-                        <!-- will be generated by JS -->
-                    </div>
+                    <div id="serverGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+                    <div id="byoContainer" class="mt-10"></div>
                 </div>
             </div>
         </section>
@@ -780,9 +744,7 @@
                     <h2 class="text-3xl sm:text-5xl font-bold mb-4 gradient-text-gemini">Frequently Asked Questions</h2>
                     <p class="text-[#7B8BB0] text-base">Everything you need to know about setting up your AI assistant.</p>
                 </div>
-
                 <div class="space-y-4">
-                    <!-- FAQ 1 -->
                     <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
                         <button onclick="toggleFaq('faq1')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
                             <span>Do I need technical skills or coding knowledge?</span>
@@ -792,7 +754,6 @@
                             No! Our service is 100% done-for-you. We handle all backend integrations, API credentials, prompt engineering, and memory store configurations. You simply receive an easy-to-use control dashboard.
                         </div>
                     </div>
-                    <!-- FAQ 2 -->
                     <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
                         <button onclick="toggleFaq('faq2')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
                             <span>How long does the initial setup take?</span>
@@ -802,7 +763,6 @@
                             Most custom workflows and AI team setups are completely deployed and tested within <strong>24 to 72 hours</strong> following our initial discovery session.
                         </div>
                     </div>
-                    <!-- FAQ 3 -->
                     <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
                         <button onclick="toggleFaq('faq3')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
                             <span>Can it integrate with WhatsApp and email?</span>
@@ -812,7 +772,6 @@
                             Yes! We support native integrations with WhatsApp Business, Gmail, Outlook, Slack, Telegram, Hubspot, and over 10,000+ app connectors via webhook.
                         </div>
                     </div>
-                    <!-- FAQ 4 -->
                     <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
                         <button onclick="toggleFaq('faq4')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
                             <span>Is my data secure and private?</span>
@@ -822,7 +781,6 @@
                             Absolutely. We use enterprise-grade encryption, and your data is never used to train public models. All integrations are OAuth-based, meaning we never store your passwords.
                         </div>
                     </div>
-                    <!-- FAQ 5 -->
                     <div class="bg-[#0F1626]/80 rounded-2xl border border-[#1E2A45] overflow-hidden shadow-card hover:border-[#4B7BFF]/30 transition-all">
                         <button onclick="toggleFaq('faq5')" class="faq-btn w-full text-left p-5 font-bold text-[#C7D4F0] flex justify-between items-center text-sm sm:text-base hover:text-white transition-colors">
                             <span>What if I need changes after the setup?</span>
@@ -870,26 +828,23 @@
 
     </main>
 
-    <!-- ===== POPUP MODAL for server details ===== -->
+    <!-- ===== POPUP MODAL ===== -->
     <div id="popupModal">
         <div class="popup-content" id="popupContent">
             <button class="popup-close" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
-            <div id="popupBody">
-                <!-- dynamic content -->
-            </div>
+            <div id="popupBody"></div>
         </div>
     </div>
 
-    <!-- ===== FLOATING CHAT ===== -->
+    <!-- ===== FLOATING CHAT (Gemini-powered) ===== -->
     <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3 pointer-events-auto">
         <div id="chatWidgetBox" class="hidden bg-[#0F1626]/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-[#1E2A45] p-4 w-72 sm:w-80 transition-all duration-300 transform origin-bottom-right shadow-black/80">
             <div class="flex items-center justify-between pb-3 border-b border-[#1E2A45] mb-3">
                 <div class="flex items-center gap-2">
-                    <!-- SVG icon (chat bubble) -->
                     <svg class="w-5 h-5 text-[#4B7BFF]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C6.48 2 2 6.04 2 10.5c0 2.42 1.17 4.59 3.02 6.06L4 20l3.59-1.83C8.83 18.69 10.36 19 12 19c5.52 0 10-4.04 10-8.5S17.52 2 12 2z"/>
                     </svg>
-                    <h3 class="text-xs sm:text-sm font-bold text-white">Assistant</h3>
+                    <h3 class="text-xs sm:text-sm font-bold text-white">Xemn Agent Assist</h3>
                 </div>
                 <button onclick="minimizeChatWidget()" class="text-[#4B7BFF]/50 hover:text-white text-xs p-1">
                     <i class="fa-solid fa-xmark"></i>
@@ -897,19 +852,12 @@
             </div>
             <div id="chatOutput" class="max-h-48 overflow-y-auto mb-3 space-y-2 text-xs">
                 <div class="bg-[#141D33] p-2.5 rounded-xl text-[#C7D4F0] leading-relaxed border border-[#1E2A45]">
-                    Hi, I'm the Assistant. Ask me anything about Xemn Agents, our services, or hosting.
+                    Hi, I'm Xemn Agent Assist. Ask me anything about our services, hosting, or AI workflows.
                 </div>
             </div>
-            <div id="pillButtonsStack" class="flex flex-wrap gap-1.5 mb-2">
-                <button onclick="handlePillClick('What services do you offer?')" class="text-xs bg-[#141D33] hover:bg-[#4B7BFF]/20 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-full px-3 py-1 transition-all">Services</button>
-                <button onclick="handlePillClick('How long does setup take?')" class="text-xs bg-[#141D33] hover:bg-[#4B7BFF]/20 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-full px-3 py-1 transition-all">Setup time</button>
-                <button onclick="handlePillClick('What AI model are you?')" class="text-xs bg-[#141D33] hover:bg-[#4B7BFF]/20 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-full px-3 py-1 transition-all">AI model</button>
-                <button onclick="handlePillClick('Can you help with Openclaw?')" class="text-xs bg-[#141D33] hover:bg-[#4B7BFF]/20 text-[#C7D4F0] border border-[#1E2A45] hover:border-[#4B7BFF]/40 rounded-full px-3 py-1 transition-all">Openclaw</button>
-            </div>
-            <!-- Text input field -->
             <div class="flex gap-2">
                 <input type="text" id="chatInput" placeholder="Type your question..." class="flex-1 px-3 py-1.5 rounded-xl bg-[#141D33] border border-[#1E2A45] text-sm text-white focus:outline-none focus:border-[#4B7BFF] placeholder-[#4B7BFF]/40" />
-                <button onclick="handleChatInput()" class="gradient-btn-primary text-white text-sm font-semibold px-3 py-1.5 rounded-xl shadow-glow-blue hover:shadow-lg transition-all">
+                <button onclick="handleChatSend()" class="gradient-btn-primary text-white text-sm font-semibold px-3 py-1.5 rounded-xl shadow-glow-blue hover:shadow-lg transition-all">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </div>
@@ -997,7 +945,6 @@
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('hidden');
         });
-
         document.addEventListener('click', function(event) {
             const menu = document.getElementById('mobileMenu');
             const btn = document.getElementById('mobileMenuBtn');
@@ -1019,7 +966,9 @@
             }
         }
 
-        // ===== CHAT WIDGET (Assistant with strict filtering) =====
+        // ===== CHAT WIDGET (Gemini-powered with system prompt) =====
+        const GEMINI_API_KEY = 'AQ.Ab8RN6K0Uhl-n8CzIwq6Eg75Ft8FURNtoaN1ysMdE7EdoBXWrw';
+
         function minimizeChatWidget() {
             document.getElementById('chatWidgetBox').classList.add('hidden');
         }
@@ -1031,71 +980,75 @@
             if (badge) badge.classList.add('hidden');
         }
 
-        // Define relevant topics (keywords) - only these topics will be answered
-        const relevantTopics = [
-            'xemn', 'agent', 'hosting', 'openclaw', 'ai model', 'services',
-            'setup', 'server', 'gpu', 'api', 'workflow', 'automation',
-            'customer support', 'scheduling', 'follow-up', 'custom', 'build',
-            'minisforum', 'mac mini', 'pc', 'ram', 'storage', 'token',
-            'payment', 'deposit', 'discovery call', 'booking'
-        ];
-
-        function isRelevant(text) {
-            const lower = text.toLowerCase();
-            return relevantTopics.some(topic => lower.includes(topic));
-        }
-
-        // Pre-defined answers for common questions
-        const answersMap = {
-            'What services do you offer?': 'We offer AI customer support bots, automated scheduling and follow-ups, custom workflow agents, and full Openclaw integrations. All tailored to your business.',
-            'How long does setup take?': 'Most setups are completed within 24‑72 hours after our initial discovery call. Complex integrations may take a bit longer.',
-            'What AI model are you?': 'I am one of Xemn Agents – a specialized assistant built to help you navigate our services and hosting options.',
-            'Can you help with Openclaw?': 'Yes! We specialize in setting up Openclaw agents, connecting them to LLMs, Airtable, Notion, CRMs, and more. We handle all the complex wiring.',
-        };
-
-        function handlePillClick(questionText) {
-            const output = document.getElementById('chatOutput');
-            const userMsg = document.createElement('div');
-            userMsg.className =
-                'bg-gradient-to-r from-[#4B7BFF]/30 to-[#3CC9F0]/20 text-white p-2.5 rounded-xl text-right font-medium text-xs leading-relaxed border border-[#4B7BFF]/30 self-end ml-auto max-w-[85%]';
-            userMsg.innerText = questionText;
-            output.appendChild(userMsg);
-
-            setTimeout(() => {
-                const botMsg = document.createElement('div');
-                botMsg.className = 'bg-[#141D33] text-[#C7D4F0] p-2.5 rounded-xl text-xs leading-relaxed border border-[#1E2A45] max-w-[90%]';
-                // Check if it's about Xemn Agents or related topics
-                const isAboutXemn = isRelevant(questionText);
-                let answer;
-                if (isAboutXemn) {
-                    // Check if we have a specific answer
-                    const foundKey = Object.keys(answersMap).find(key => questionText.toLowerCase().includes(key
-                    .toLowerCase()));
-                    answer = foundKey ? answersMap[foundKey] :
-                        "That's a great question! I'm here to help with Xemn Agents services, hosting, Openclaw, and custom AI workflows. Could you be more specific?";
-                } else {
-                    answer = "I am only informed about Xemn Agents, our services, hosting, and AI workflows. Please ask about those topics.";
+        async function getGeminiResponse(prompt) {
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Gemini API error:', errorData);
+                    return null;
                 }
-                botMsg.innerText = answer;
-                output.appendChild(botMsg);
-                output.scrollTop = output.scrollHeight;
-            }, 400);
-            output.scrollTop = output.scrollHeight;
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
+            } catch (e) {
+                console.error('Chat API error:', e);
+                return null;
+            }
         }
 
-        function handleChatInput() {
+        async function handleChatSend() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
             if (!text) return;
-            handlePillClick(text);
+            const output = document.getElementById('chatOutput');
+
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className =
+                'bg-gradient-to-r from-[#4B7BFF]/30 to-[#3CC9F0]/20 text-white p-2.5 rounded-xl text-right font-medium text-xs leading-relaxed border border-[#4B7BFF]/30 self-end ml-auto max-w-[85%]';
+            userMsg.innerText = text;
+            output.appendChild(userMsg);
             input.value = '';
+
+            // Show loading indicator
+            const loadingMsg = document.createElement('div');
+            loadingMsg.className = 'bg-[#141D33] text-[#7B8BB0] p-2.5 rounded-xl text-xs leading-relaxed border border-[#1E2A45]';
+            loadingMsg.innerHTML = '<div class="inline-block w-4 h-4 border-2 border-[#4B7BFF] border-t-transparent rounded-full animate-spin mr-2"></div> Thinking...';
+            output.appendChild(loadingMsg);
+            output.scrollTop = output.scrollHeight;
+
+            // Updated system prompt with Openclaw redirect rule
+            const systemPrompt =
+                "You are Xemn Agent Assist, a helpful AI assistant for Xemn Agents. Answer questions about our services, hosting, and AI workflows. Keep responses concise, friendly, and informative. If the user asks how to set up Openclaw themselves or asks for technical setup instructions, do not provide any instructions. Instead, respond with: 'I cannot help you with that, but our team can. Just message us on WhatsApp or book a free call.' If asked about topics outside this scope, politely redirect to Xemn Agents offerings. Do not use emojis or special characters in your responses.";
+            const fullPrompt = systemPrompt + "\n\nUser question: " + text;
+
+            const response = await getGeminiResponse(fullPrompt);
+            // Remove loading message
+            output.removeChild(loadingMsg);
+
+            const botMsg = document.createElement('div');
+            botMsg.className = 'bg-[#141D33] text-[#C7D4F0] p-2.5 rounded-xl text-xs leading-relaxed border border-[#1E2A45] max-w-[90%]';
+            if (response) {
+                botMsg.innerText = response;
+            } else {
+                botMsg.innerText =
+                    "Sorry, I'm having trouble connecting. Please try again later or contact us directly via the 'Let's Talk' button.";
+            }
+            output.appendChild(botMsg);
+            output.scrollTop = output.scrollHeight;
         }
 
-        // Allow Enter key in input
+        // Allow Enter key in chat input
         document.getElementById('chatInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                handleChatInput();
+                handleChatSend();
             }
         });
 
@@ -1122,59 +1075,27 @@
         }
 
         // ================================================================
-        // ===== REVIEWS: INFINITE SCROLL (LEFT) =====
+        // ===== REVIEWS: INFINITE SCROLL =====
         // ================================================================
-
-        const reviewData = [{
-            name: 'Andy Watkins',
-            country: 'US',
-            initials: 'AW',
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-            stars: 5,
-            text: 'Easy to book and get the work done. Will use them again!'
-        }, {
-            name: 'Chris Mateo',
-            country: 'US',
-            initials: 'CM',
-            avatar: null,
-            stars: 5,
-            text: 'Great service and support they got me set up and running in 2 days!'
-        }, {
-            name: 'Darach Gannon',
-            country: 'IE',
-            initials: 'DG',
-            avatar: null,
-            stars: 5,
-            text: 'I had set up Openclaw myself but hit some problems with memory management. Xemn Agents resolved everything seamlessly.'
-        }, {
-            name: 'Jewelryroom',
-            country: 'HK',
-            initials: 'JE',
-            avatar: null,
-            stars: 5,
-            text: 'Skeptical at first, but these guys are legit. Got on a call, shared screen, and they had my AI workflows running in hours.'
-        }, {
-            name: 'Mike Chen',
-            country: 'SG',
-            initials: 'MC',
-            avatar: null,
-            stars: 4,
-            text: 'I needed custom AI agents for lead qualification. They set up the entire Openclaw integration and it works flawlessly.'
-        }, {
-            name: 'Sarah Kim',
-            country: 'KR',
-            initials: 'SK',
-            avatar: null,
-            stars: 5,
-            text: 'They helped me set up AI software for customer support across WhatsApp and email. The setup was quick and the support is great.'
-        }];
+        const reviewData = [
+            { name: 'Andy Watkins', country: 'US', initials: 'AW', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80', stars: 5,
+                text: 'Easy to book and get the work done. Will use them again!' },
+            { name: 'Chris Mateo', country: 'US', initials: 'CM', avatar: null, stars: 5,
+                text: 'Great service and support they got me set up and running in 2 days!' },
+            { name: 'Darach Gannon', country: 'IE', initials: 'DG', avatar: null, stars: 5,
+                text: 'I had set up Openclaw myself but hit some problems with memory management. Xemn Agents resolved everything seamlessly.' },
+            { name: 'Jewelryroom', country: 'HK', initials: 'JE', avatar: null, stars: 5,
+                text: 'Skeptical at first, but these guys are legit. Got on a call, shared screen, and they had my AI workflows running in hours.' },
+            { name: 'Mike Chen', country: 'SG', initials: 'MC', avatar: null, stars: 4,
+                text: 'I needed custom AI agents for lead qualification. They set up the entire Openclaw integration and it works flawlessly.' },
+            { name: 'Sarah Kim', country: 'KR', initials: 'SK', avatar: null, stars: 5,
+                text: 'They helped me set up AI software for customer support across WhatsApp and email. The setup was quick and the support is great.' }
+        ];
 
         function renderStars(count) {
             let html = '';
             for (let i = 0; i < 5; i++) {
-                html += (i < count) ?
-                    '<i class="fa-solid fa-star"></i>' :
-                    '<i class="fa-regular fa-star"></i>';
+                html += (i < count) ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
             }
             return html;
         }
@@ -1183,7 +1104,6 @@
             const avatarHtml = review.avatar ?
                 `<img src="${review.avatar}" alt="${review.name}" />` :
                 `<span>${review.initials}</span>`;
-
             return `
                             <div class="review-card">
                                 <div>
@@ -1262,7 +1182,6 @@
         // ===== HOSTING: PRIVATE SERVER CARDS =====
         // ================================================================
 
-        // Data for new cards
         const serverProducts = [{
             id: 'minisforum',
             name: 'Minisforum AI X1 Pro 470',
@@ -1272,10 +1191,7 @@
             icon: 'Images/minisforum.png',
             badge: 'Hosted by You',
             link: 'https://store.minisforum.com/products/minisforum-ai-x1-pro-470-mini-pc',
-            popup: {
-                type: 'minisforum',
-                message: 'Make sure to select the <strong>64GB RAM</strong> and <strong>1TB SSD</strong> option when ordering.'
-            }
+            popup: { type: 'minisforum', message: 'Make sure to select the <strong>64GB RAM</strong> and <strong>1TB SSD</strong> option when ordering.' }
         }, {
             id: 'custompc',
             name: 'Custom PC Build',
@@ -1309,20 +1225,17 @@
             icon: 'https://cdn.simpleicons.org/amd/4B7BFF',
             badge: 'Hosted by You',
             link: 'https://www.microcenter.com/product/711962/ryzen-ai-halo-developer-platform-windows-11-pro',
-            popup: null // no popup, direct link
+            popup: null
         }];
 
         const serverGrid = document.getElementById('serverGrid');
         const byoContainer = document.getElementById('byoContainer');
 
         function renderServerCards() {
-            // Render the three new cards in the grid
             serverProducts.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'card-hover rounded-2xl p-6 transition-all relative text-center';
                 const badgeColor = 'bg-[#4B7BFF] text-white';
-
-                // Determine icon
                 let iconHtml = '';
                 if (product.icon.startsWith('fa-')) {
                     iconHtml = `<i class="${product.icon} text-3xl text-[#4B7BFF]"></i>`;
@@ -1331,8 +1244,6 @@
                 } else {
                     iconHtml = `<img src="${product.icon}" alt="${product.name}" class="w-10 h-10 mx-auto" />`;
                 }
-
-                // Build card
                 card.innerHTML = `
                                     <span class="absolute top-4 right-4 text-xs font-medium px-3 py-1 rounded-full ${badgeColor}">${product.badge}</span>
                                     <div class="w-16 h-16 mx-auto rounded-full bg-[#4B7BFF]/10 border border-[#4B7BFF]/20 flex items-center justify-center mb-4">
@@ -1351,12 +1262,10 @@
                                 `;
                 serverGrid.appendChild(card);
             });
-
-            // Render the Bring Your Own card (full width below)
             renderBYOCard();
         }
 
-        // ===== UPDATED BYO ESTIMATOR with specific Core 2 Duo + GeForce 210 = 8.5 tokens/sec =====
+        // ===== BYO ESTIMATOR WITH GEMINI =====
         function renderBYOCard() {
             const byoCard = document.createElement('div');
             byoCard.className = 'card-hover rounded-2xl p-6 transition-all relative w-full';
@@ -1368,8 +1277,14 @@
                                         <i class="fa-solid fa-desktop text-3xl text-[#4B7BFF]"></i>
                                     </div>
                                     <h4 class="font-bold text-white text-lg">Bring Your Own Server</h4>
-                                    <p class="text-sm text-[#7B8BB0] mt-2">Already have a PC or Mac? Paste your specs or type them manually.</p>
-                                    
+                                    <p class="text-sm text-[#7B8BB0] mt-2">Paste your hardware specs (or type them) and we'll estimate tokens/sec.</p>
+
+                                    <!-- Model name input - cleaned up label -->
+                                    <div class="mt-4 text-left max-w-lg mx-auto">
+                                        <label class="block text-xs font-semibold text-[#C7D4F0] mb-1">Model name (optional)</label>
+                                        <input type="text" id="modelName" placeholder="Leave blank for default 14B" class="w-full px-3 py-2 rounded-xl bg-[#141D33] border border-[#1E2A45] text-sm text-white focus:outline-none focus:border-[#4B7BFF] placeholder-[#4B7BFF]/40" />
+                                    </div>
+
                                     <!-- Toggle Switch -->
                                     <div class="flex items-center justify-center space-x-4 mt-4">
                                         <span class="text-xs font-medium text-[#7B8BB0]">Manual</span>
@@ -1388,18 +1303,19 @@
                                             <input type="text" id="byo-ram" placeholder="RAM (e.g., 32GB)" class="w-full px-3 py-2 rounded-xl bg-[#141D33] border border-[#1E2A45] text-sm text-white focus:outline-none focus:border-[#4B7BFF]">
                                         </div>
                                         
-                                        <!-- Blob Input Section (Hidden by default) -->
+                                        <!-- Text Blob Input Section (Hidden by default) -->
                                         <div id="blobSection" class="hidden">
                                             <textarea id="byo-blob" rows="3" class="w-full px-3 py-2 rounded-xl bg-[#141D33] border border-[#1E2A45] text-sm text-white focus:outline-none focus:border-[#4B7BFF]" placeholder="Paste your full specs... e.g. Intel i9-13900K, NVIDIA RTX 4090, 64GB RAM"></textarea>
                                             <div id="blobPreview" class="mt-2 text-xs text-[#7B8BB0]"></div>
                                         </div>
 
                                         <button id="estimateBtn" class="w-full gradient-btn-primary text-white font-bold py-2.5 rounded-xl text-sm shadow-glow-blue hover:shadow-lg transition-all mt-4">
-                                            <i class="fa-solid fa-microchip mr-2"></i>Estimate Performance
+                                            <i class="fa-solid fa-microchip mr-2"></i>Estimate with Xemn Estimator
                                         </button>
                                         
                                         <div id="perfResult" class="mt-4 hidden">
-                                            <div class="bg-[#141D33] rounded-xl p-4 border border-[#1E2A45]">
+                                            <div class="bg-[#141D33] rounded-xl p-4 border border-[#1E2A45] relative">
+                                                <div id="modelBadge" class="absolute top-2 right-2 text-xs bg-[#1E2A45] px-2 py-0.5 rounded-full text-[#C7D4F0] border border-[#4B7BFF]/30">14B</div>
                                                 <p class="text-sm font-semibold text-white">Performance Estimate</p>
                                                 <div id="perfBadge" class="mt-2"></div>
                                                 <div id="perfDetail" class="mt-2 text-xs text-[#C7D4F0] space-y-1"></div>
@@ -1410,7 +1326,6 @@
                             `;
             byoContainer.appendChild(byoCard);
 
-            // --- BYO Card Logic ---
             const toggle = byoCard.querySelector('#byoToggle');
             const manualSection = byoCard.querySelector('#manualSection');
             const blobSection = byoCard.querySelector('#blobSection');
@@ -1423,8 +1338,9 @@
             const perfResult = byoCard.querySelector('#perfResult');
             const perfBadge = byoCard.querySelector('#perfBadge');
             const perfDetail = byoCard.querySelector('#perfDetail');
+            const modelInput = byoCard.querySelector('#modelName');
+            const modelBadge = byoCard.querySelector('#modelBadge');
 
-            // Toggle logic
             toggle.addEventListener('change', function() {
                 if (this.checked) {
                     manualSection.classList.add('hidden');
@@ -1436,169 +1352,182 @@
                 perfResult.classList.add('hidden');
             });
 
-            // Blob parsing
-            blobTextarea.addEventListener('input', function() {
-                const text = this.value;
-                let cpu = '',
-                    gpu = '',
-                    ram = '';
-                const cpuMatch = text.match(/(Intel|AMD|Apple\s*M\d|Ryzen|Core\s*i\d|Threadripper|Core 2 Duo)/i);
-                if (cpuMatch) cpu = cpuMatch[0];
-                const gpuMatch = text.match(/(NVIDIA|RTX|GTX|Radeon|AMD|Apple|M\d\s*(?:Max|Ultra|Pro)?\s*GPU|A100|H100|GeForce|GT\s*\d{3})/i);
-                if (gpuMatch) gpu = gpuMatch[0];
-                const ramMatch = text.match(/(\d+)\s*GB/i);
-                if (ramMatch) ram = ramMatch[0];
-                if (cpu || gpu || ram) {
-                    blobPreview.innerHTML =
-                        `<span class="text-[#4B7BFF]">Detected:</span> CPU: ${cpu || 'N/A'} | GPU: ${gpu || 'N/A'} | RAM: ${ram || 'N/A'}`;
-                    blobPreview.classList.remove('text-[#7B8BB0]');
-                    blobPreview.classList.add('text-[#C7D4F0]');
-                } else {
-                    blobPreview.innerHTML = 'Paste your specs to auto-detect CPU, GPU, and RAM.';
-                    blobPreview.classList.remove('text-[#C7D4F0]');
-                    blobPreview.classList.add('text-[#7B8BB0]');
-                }
-            });
+            // Estimate function using Gemini
+            async function estimatePerformance() {
+                let specText;
+                let modelName = modelInput.value.trim() || '14B';
 
-            // Estimate function with specific override for Core 2 Duo + GeForce 210
-            function estimatePerformance() {
-                let cpu, gpu, ramText;
+                // Try to detect model size from the spec text or model input
+                let detectedModel = '14B';
+                const modelLower = modelName.toLowerCase();
+                if (modelLower.includes('70b') || modelLower.includes('70 b')) {
+                    detectedModel = '70B';
+                } else if (modelLower.includes('8b') || modelLower.includes('8 b')) {
+                    detectedModel = '8B';
+                } else if (modelLower.includes('13b') || modelLower.includes('13 b')) {
+                    detectedModel = '13B';
+                } else if (modelLower.includes('32b') || modelLower.includes('32 b')) {
+                    detectedModel = '32B';
+                } else if (modelLower.includes('40b') || modelLower.includes('40 b')) {
+                    detectedModel = '40B';
+                } else if (modelLower.includes('65b') || modelLower.includes('65 b')) {
+                    detectedModel = '65B';
+                } else if (modelLower.includes('120b') || modelLower.includes('120 b')) {
+                    detectedModel = '120B';
+                } else if (modelName && !modelLower.includes('14b') && !modelLower.includes('14 b')) {
+                    detectedModel = modelName;
+                }
+                // Update badge
+                modelBadge.textContent = detectedModel;
+
                 if (toggle.checked) {
-                    const previewText = blobPreview.innerText;
-                    const cpuMatch = previewText.match(/CPU:\s*([^|]+)/);
-                    const gpuMatch = previewText.match(/GPU:\s*([^|]+)/);
-                    const ramMatch = previewText.match(/RAM:\s*([^\s]+)/);
-                    cpu = cpuMatch ? cpuMatch[1].trim() : '';
-                    gpu = gpuMatch ? gpuMatch[1].trim() : '';
-                    ramText = ramMatch ? ramMatch[1].trim() : '';
+                    specText = blobTextarea.value.trim();
+                    // Try to auto-detect model size from blob as well
+                    const blobLower = specText.toLowerCase();
+                    if (blobLower.includes('70b') || blobLower.includes('70 b')) {
+                        detectedModel = '70B';
+                        modelBadge.textContent = '70B';
+                    } else if (blobLower.includes('8b') || blobLower.includes('8 b')) {
+                        detectedModel = '8B';
+                        modelBadge.textContent = '8B';
+                    } else if (blobLower.includes('13b') || blobLower.includes('13 b')) {
+                        detectedModel = '13B';
+                        modelBadge.textContent = '13B';
+                    } else if (blobLower.includes('32b') || blobLower.includes('32 b')) {
+                        detectedModel = '32B';
+                        modelBadge.textContent = '32B';
+                    } else if (blobLower.includes('40b') || blobLower.includes('40 b')) {
+                        detectedModel = '40B';
+                        modelBadge.textContent = '40B';
+                    } else if (blobLower.includes('65b') || blobLower.includes('65 b')) {
+                        detectedModel = '65B';
+                        modelBadge.textContent = '65B';
+                    } else if (blobLower.includes('120b') || blobLower.includes('120 b')) {
+                        detectedModel = '120B';
+                        modelBadge.textContent = '120B';
+                    } else if (blobLower.includes('nemotron')) {
+                        detectedModel = '70B';
+                        modelBadge.textContent = '70B';
+                    } else if (blobLower.includes('llama 3.1 8b') || blobLower.includes('llama 3.1 8b')) {
+                        detectedModel = '8B';
+                        modelBadge.textContent = '8B';
+                    } else if (blobLower.includes('qwen 2.5')) {
+                        if (!blobLower.includes('32b') && !blobLower.includes('72b') && !blobLower.includes('7b')) {
+                            detectedModel = '14B';
+                            modelBadge.textContent = '14B';
+                        }
+                    }
+                    if (!specText) {
+                        alert('Please paste your hardware specs in the text area.');
+                        return;
+                    }
                 } else {
-                    cpu = cpuInput.value.trim();
-                    gpu = gpuInput.value.trim();
-                    ramText = ramInput.value.trim();
-                }
-                if (!cpu || !gpu || !ramText) {
-                    alert('Please provide CPU, GPU, and RAM details before estimating.');
-                    return;
-                }
-
-                // ---- SPECIAL CASE: Core 2 Duo + GeForce 210 ----
-                const isCore2Duo = cpu.toLowerCase().includes('core 2 duo');
-                const isGeForce210 = gpu.toLowerCase().includes('geforce 210') || gpu.toLowerCase().includes('gt 210');
-                if (isCore2Duo && isGeForce210) {
-                    const tokens = 8.5;
-                    const rating = 'Medium';
-                    const ratingClass = 'perf-medium';
-                    const details = [];
-                    details.push(`Estimated tokens/sec: <strong>${tokens}</strong>`);
-                    details.push(`Rating: <span class="font-bold">${rating}</span>`);
-                    details.push('✅ Surprisingly usable for lightweight 14B models with clever prompt engineering.');
-                    perfResult.classList.remove('hidden');
-                    perfBadge.innerHTML = `<span class="perf-badge ${ratingClass}">${rating}</span>`;
-                    perfDetail.innerHTML = details.map(d => `<p>${d}</p>`).join('');
-                    return;
+                    const cpu = cpuInput.value.trim();
+                    const gpu = gpuInput.value.trim();
+                    const ram = ramInput.value.trim();
+                    if (!cpu || !gpu || !ram) {
+                        alert('Please fill in CPU, GPU, and RAM.');
+                        return;
+                    }
+                    specText = `CPU: ${cpu}\nGPU: ${gpu}\nRAM: ${ram}`;
                 }
 
-                // ---- General heuristic ----
-                const ramNum = parseInt(ramText.match(/(\d+)/)?.[0] || 0);
-                const gpuSpeed = {
-                    '4090': 120,
-                    '4080': 95,
-                    '4070': 75,
-                    '4060': 55,
-                    '3090': 65,
-                    '3080': 50,
-                    '3060': 35,
-                    'a100': 130,
-                    'h100': 150,
-                    'm4': 70,
-                    'm3': 50,
-                    'm2': 30,
-                    'm1': 15,
-                    '7900': 60,
-                    'radeon': 40,
-                    'geforce 210': 0.05,
-                    'gt 710': 0.08,
-                    'gt 1030': 0.2,
-                    'integrated': 0.5,
-                };
-                const cpuBoost = {
-                    'm4': 25,
-                    'm3': 18,
-                    'm2': 12,
-                    'm1': 6,
-                    'i9': 15,
-                    'i7': 10,
-                    'ryzen 9': 16,
-                    'ryzen 7': 11,
-                    'threadripper': 22,
-                    'intel': 8,
-                    'amd': 8,
-                    'core 2 duo': 0.1,
-                    'pentium': 0.05,
-                    'athlon': 0.05,
-                };
-
-                let base = 0.5;
-                const gpuLower = gpu.toLowerCase();
-                for (const [key, val] of Object.entries(gpuSpeed)) {
-                    if (gpuLower.includes(key)) { base = val; break; }
-                }
-                let boost = 0;
-                const cpuLower = cpu.toLowerCase();
-                for (const [key, val] of Object.entries(cpuBoost)) {
-                    if (cpuLower.includes(key)) { boost = val; break; }
-                }
-                let ramBonus = Math.floor(ramNum / 16) * 2;
-                if (ramBonus > 10) ramBonus = 10;
-                if (ramNum < 4) ramBonus = 0;
-
-                let tokensPerSec = base + boost + ramBonus;
-                if (tokensPerSec < 0.01) tokensPerSec = 0.01;
-                if (tokensPerSec > 150) tokensPerSec = 150;
-
-                // Format tokens: if <5 show one decimal, else integer
-                let tokensDisplay = tokensPerSec >= 5 ? Math.round(tokensPerSec).toString() : tokensPerSec.toFixed(1);
-
-                let rating = '',
-                    ratingClass = '',
-                    details = [];
-                if (tokensPerSec >= 80) { rating = 'Lightning Speed';
-                    ratingClass = 'perf-lightning'; } else if (tokensPerSec >= 60) { rating = 'Ultra Fast';
-                    ratingClass = 'perf-ultra'; } else if (tokensPerSec >= 40) { rating = 'Fast';
-                    ratingClass = 'perf-fast'; } else if (tokensPerSec >= 20) { rating = 'Medium';
-                    ratingClass = 'perf-medium'; } else if (tokensPerSec >= 5) { rating = 'Slow';
-                    ratingClass = 'perf-slow'; } else if (tokensPerSec >= 1) { rating = 'Ultra Slow';
-                    ratingClass = 'perf-ultra-slow'; } else { rating = 'Extremely Slow';
-                    ratingClass = 'perf-extremely-slow'; }
-
-                details.push(`Estimated tokens/sec: <strong>${tokensDisplay}</strong>`);
-                details.push(`Rating: <span class="font-bold">${rating}</span>`);
-                if (tokensPerSec < 1) {
-                    details.push('💀 This hardware is not suitable for running 14B models. Consider using a much smaller model or upgrading your system.');
-                } else if (tokensPerSec < 5) {
-                    details.push('⚠️ Very slow – expect significant delays. Not recommended for production use.');
-                } else if (tokensPerSec < 20) {
-                    details.push('💡 For 14B models, performance may be limited. Consider using a lighter model or upgrading your GPU.');
-                } else if (tokensPerSec < 40) {
-                    details.push('✅ Good for prototyping and moderate use.');
-                } else if (tokensPerSec < 80) {
-                    details.push('🚀 Excellent for production inference and fine‑tuning.');
-                } else {
-                    details.push('⚡ Blazing fast – suitable for real‑time applications and heavy workloads.');
-                }
-
+                // Show loading state
                 perfResult.classList.remove('hidden');
-                perfBadge.innerHTML = `<span class="perf-badge ${ratingClass}">${rating}</span>`;
-                perfDetail.innerHTML = details.map(d => `<p>${d}</p>`).join('');
+                perfBadge.innerHTML = '<div class="inline-block w-5 h-5 border-2 border-[#4B7BFF] border-t-transparent rounded-full animate-spin mr-2"></div> Estimating...';
+                perfDetail.innerHTML = 'Using Xemn Estimator to compute tokens/sec.';
+
+                estimateBtn.disabled = true;
+                estimateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                try {
+                    const prompt = `You are a hardware performance estimator. Based on the following hardware specs, estimate the tokens per second for running a ${detectedModel} parameter LLM. Provide ONLY a JSON response with this exact format: {"tokens_per_sec": number, "rating": "string", "comment": "string"}. Rating must be one of: "Extremely Slow", "Ultra Slow", "Slow", "Medium", "Fast", "Ultra Fast", "Lightning Speed". Comment should be a short, helpful recommendation without any emojis or special characters.\n\nHardware specs:\n${specText}`;
+
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }]
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Gemini API error:', errorData);
+                        throw new Error(`API error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+                    let jsonMatch = text.match(/\{[\s\S]*\}/);
+                    let result;
+                    if (jsonMatch) {
+                        try {
+                            result = JSON.parse(jsonMatch[0]);
+                        } catch (e) {
+                            console.warn('Failed to parse JSON, using fallback');
+                            result = null;
+                        }
+                    }
+
+                    if (result && result.tokens_per_sec !== undefined && result.rating) {
+                        const tokens = result.tokens_per_sec;
+                        const rating = result.rating;
+                        let comment = result.comment || '';
+                        comment = comment.replace(/[\u{1F300}-\u{1FAFF}]/gu, '').trim();
+
+                        let ratingClass = 'perf-medium';
+                        const ratingMap = {
+                            'extremely slow': 'perf-extremely-slow',
+                            'ultra slow': 'perf-ultra-slow',
+                            'slow': 'perf-slow',
+                            'medium': 'perf-medium',
+                            'fast': 'perf-fast',
+                            'ultra fast': 'perf-ultra',
+                            'lightning speed': 'perf-lightning'
+                        };
+                        const lowerRating = rating.toLowerCase();
+                        for (const [key, cls] of Object.entries(ratingMap)) {
+                            if (lowerRating.includes(key)) {
+                                ratingClass = cls;
+                                break;
+                            }
+                        }
+
+                        let tokensDisplay = tokens >= 5 ? Math.round(tokens).toString() : tokens.toFixed(1);
+
+                        const details = [];
+                        details.push(`Estimated tokens/sec: <strong>${tokensDisplay}</strong>`);
+                        details.push(`Rating: <span class="font-bold">${rating}</span>`);
+                        if (comment) {
+                            details.push(`${comment}`);
+                        }
+                        perfBadge.innerHTML = `<span class="perf-badge ${ratingClass}">${rating}</span>`;
+                        perfDetail.innerHTML = details.map(d => `<p>${d}</p>`).join('');
+                    } else {
+                        perfBadge.innerHTML = '<span class="text-yellow-400">⚠️ Could not parse response</span>';
+                        perfDetail.innerHTML =
+                            `<p class="text-[#7B8BB0]">We couldn't get a structured estimate. Please try again or contact us for a manual evaluation.</p>`;
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    perfBadge.innerHTML = '<span class="text-red-400">⚠️ API Error</span>';
+                    perfDetail.innerHTML =
+                        `<p class="text-red-400">Failed to get estimate. Please check your internet connection or try again later.</p><p class="text-[#7B8BB0]">Error: ${error.message}</p>`;
+                }
+
+                estimateBtn.disabled = false;
+                estimateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
+
             estimateBtn.addEventListener('click', estimatePerformance);
         }
 
-        // ===== Handle server click (View Details) =====
+        // ===== Handle server click =====
         function handleServerClick(id) {
             const product = serverProducts.find(p => p.id === id);
             if (!product) return;
-
             if (product.id === 'minisforum') {
                 showMinisforumPopup(product);
             } else if (product.id === 'custompc') {
@@ -1629,12 +1558,9 @@
             }, 2000);
         }
 
-        // Updated Custom PC popup: no links, only parts and prices, with a loading spinner
         function showCustomPCPopup(product) {
             const modal = document.getElementById('popupModal');
             const body = document.getElementById('popupBody');
-
-            // Show loading spinner
             body.innerHTML = `
                                 <div class="flex flex-col items-center justify-center py-10">
                                     <div class="w-12 h-12 border-4 border-[#4B7BFF] border-t-transparent rounded-full animate-spin"></div>
@@ -1643,8 +1569,6 @@
                             `;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            // After 2 seconds, show the parts list (no links)
             setTimeout(() => {
                 let tableHtml = `
                                     <h3 class="text-2xl font-bold text-white mb-4">${product.name}</h3>
@@ -1690,7 +1614,7 @@
             if (e.key === 'Escape') closePopup();
         });
 
-        // ===== Initialize server cards =====
+        // ===== Initialize everything =====
         renderServerCards();
     </script>
 </body>
